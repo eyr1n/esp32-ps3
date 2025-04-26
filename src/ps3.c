@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
-#include <esp_system.h>
+#include <esp_mac.h>
 #include "include/ps3.h"
 #include "include/ps3_int.h"
 
@@ -279,12 +279,7 @@ void ps3SetEventObjectCallback( void *object, ps3_event_object_callback_t cb )
 *******************************************************************************/
 void ps3SetBluetoothMacAddress( const uint8_t *mac )
 {
-    // The bluetooth MAC address is derived from the base MAC address
-    // https://docs.espressif.com/projects/esp-idf/en/stable/api-reference/system/system.html#mac-address
-    uint8_t base_mac[6];
-    memcpy(base_mac, mac, 6);
-    base_mac[5] -= 2;
-    esp_base_mac_addr_set(base_mac);
+    esp_iface_mac_addr_set(mac, ESP_MAC_BT);
 }
 
 
